@@ -55,13 +55,13 @@ def add_produto(form: ProdutoSchema):
         logger.debug(f"Adicionado produto de nome: '{produto.nome}'")
         return apresenta_produto(produto), 200
 
-    except IntegrityError as e:
+    except IntegrityError:
         # como a duplicidade do nome é a provável razão do IntegrityError
         error_msg = "Produto de mesmo nome já salvo na base :/"
         logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
         return {"mesage": error_msg}, 409
 
-    except Exception as e:
+    except Exception:
         # caso um erro fora do previsto
         error_msg = "Não foi possível salvar novo item :/"
         logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
@@ -102,7 +102,7 @@ def update_produto(form: UpdateProdutoSchema):
             logger.debug(f"Editado produto de nome: '{db_produto.nome}'")
             return apresenta_produto(db_produto), 200
 
-    except Exception as e:
+    except Exception:
         # caso um erro fora do previsto
         error_msg = "Não foi possível salvar novo item :/"
         logger.warning(f"Erro ao adicionar produto '{db_produto.nome}', {error_msg}")
