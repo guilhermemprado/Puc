@@ -5,7 +5,6 @@ from schemas.produto import (
     ProdutoViewSchema,
     ListagemProdutosSchema,
     ProdutoDelSchema,
-    apresenta_produtos,
     apresenta_produto,
     apresenta_produtos,
     UpdateProdutoSchema,

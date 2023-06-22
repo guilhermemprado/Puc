@@ -1,6 +1,6 @@
+from urllib.parse import unquote
 from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
-from urllib.parse import unquote
 
 from sqlalchemy.exc import IntegrityError
 
@@ -119,7 +119,7 @@ def get_produtos():
 
     Retorna uma representação da listagem de produtos.
     """
-    logger.debug(f"Coletando produtos ")
+    logger.debug("Coletando produtos ")
     # criando conexão com a base
     session = Session()
     # fazendo a busca
@@ -129,9 +129,8 @@ def get_produtos():
         # se não há produtos cadastrados
         return {"produtos": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(produtos))
+        logger.debug(f"Produtos econtrados {len(produtos)}")
         # retorna a representação de produto
-        print(produtos)
         return apresenta_produtos(produtos), 200
 
 
