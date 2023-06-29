@@ -80,15 +80,15 @@ def new_car(form: CarSchema):
 
     except Exception:
         # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item:"
+        error_msg = f"Não foi possível alterar o item: {error}"
         return {"mesage": error_msg}, 400
 
 
 @app.post(
-    "/alter_carro",
+    "/update_carro",
     tags=[car_tag],
 )
-def alter_car(query: CarSearchSchema, form: UpdateCarSchema):
+def update_car(query: CarSearchSchema, form: UpdateCarSchema):
     """Change a car already saved in the database
 
     Returns a representation of the car.
@@ -99,27 +99,45 @@ def alter_car(query: CarSearchSchema, form: UpdateCarSchema):
         print(query)
         db_car = query.first()
         if not db_car:
-            # se o produto não foi encontrado
-            error_msg = "Produto não encontrado na base."
+            # Se o carro não foi encontrado
+            error_msg = "Carro não encontrado na base."
             return {"mesage": error_msg}, 404
         else:
             if form.color:
                 db_car.color = form.color
+            else:
+                error_msg = "Informe a cor."
+                return {"mesage": error_msg}, 404
 
             if form.Year_manufacture:
                 db_car.Year_manufacture = form.Year_manufacture
-                
+            else:
+                error_msg = "Informe o ano de fabricação."
+                return {"mesage": error_msg}, 404
+
             if form.year_model:
                 db_car.year_model = form.year_model
-                
+            else:
+                error_msg = "Informe o ano do modelo."
+                return {"mesage": error_msg}, 404
+
             if form.model:
                 db_car.model = form.model
-                
+            else:
+                error_msg = "Informe o modelo."
+                return {"mesage": error_msg}, 404
+
             if form.value:
                 db_car.value = form.value
-                
+            else:
+                error_msg = "Informe o valor."
+                return {"mesage": error_msg}, 404
+
             if form.fuel:
                 db_car.fuel = form.fuel
+            else:
+                error_msg = "Informe o combustível."
+                return {"mesage": error_msg}, 404
 
             session.add(db_car)
             session.commit()

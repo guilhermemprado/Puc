@@ -1,3 +1,6 @@
+"""
+    Imports
+"""
 from model import Base
 from sqlalchemy import Column, Integer, String, Float
 

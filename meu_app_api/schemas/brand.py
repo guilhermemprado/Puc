@@ -1,3 +1,6 @@
+"""
+    Imports
+"""
 from typing import List, Optional
 
 from model.brand import Brand

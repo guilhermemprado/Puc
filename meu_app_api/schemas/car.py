@@ -1,10 +1,13 @@
+"""
+    Imports
+"""
 from typing import List
 
 from model import Session
 from model.brand import Brand
 from model.car import Car
-from model.model import Model
 from model.fuel import Fuel
+from model.model import Model
 from pydantic import BaseModel
 
 
