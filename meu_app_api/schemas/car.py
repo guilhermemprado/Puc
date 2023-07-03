@@ -42,13 +42,14 @@ def show_cars(cars: List[Car]):
         query_model = session.query(Model).filter(Model.id == car.model).first()
         query_brand = session.query(Brand).filter(Brand.id == query_model.brand).first()
         query_fuel = session.query(Fuel).filter(Fuel.id == car.fuel).first()
+        
 
         result.append(
             {
                 "Id": car.id,
                 "Color": car.color,
-                "Year manufacture": car.year_manufacture,
-                "Year model": car.year_model,
+                "Year_manufacture": car.year_manufacture,
+                "Year_model": car.year_model,
                 "Value": "{:.2f}".format(car.value),
                 "Brand": query_brand.name,
                 "Model": query_model.name,
@@ -56,7 +57,7 @@ def show_cars(cars: List[Car]):
             }
         )
 
-    return {"Cars": result}
+    return {"cars": result}
 
 
 def show_car(car: Car):

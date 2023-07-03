@@ -28,7 +28,7 @@ def show_brands(brands: List[Brand]):
             }
         )
 
-    return {"Brands": result}
+    return {"brands": result}
 
 
 def show_brand(brand: Brand):

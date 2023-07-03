@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Projeto</title>
+</head>
+
+<body>
+
+    <!-- Cabeçalho de informações do sistema -->
+    <header>
+        <div class="banner">
+            <img src="images/teste.jpg" alt="y">
+        </div>
+        <!--
+        <div class="title">
+            <h2>Lista de carros</h2>
+        </div>
+        -->
+    </header>
+
+    <!-- Opções para adicionar um novo item -->
+    <section class="newItem">
+        <select id=newBrand>
+
+        </select>
+
+        <select id=newModel>
+
+        </select>
+        <input type="text" id="newFuel" placeholder="Combustível:">
+        <input type="text" id="newYearManufacture" placeholder="Ano fabricação:">
+        <input type="text" id="newYearModel" placeholder="Ano modelo:">
+        <input type="text" id="newColor" placeholder="Color:">
+        <input type="text" id="newValue" placeholder="Valor:">
+        <span onclick="newItem()" class="addBtn"><b>Adicionar</b></span>
+    </section>
+
+    <!-- Tabela com items existentes -->
+    <section class="items">
+        <table id="myTable">
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Combustível</th>
+                <th>Ano fabricação</th>
+                <th>Ano modelo</th>
+                <th>Cor</th>
+                <th>Valor</th>
+                <th><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15px" height="15px"></th>
+                <th><img src="https://cdn-icons-png.flaticon.com/512/126/126483.png" width="15px" height="15px"></th>
+            </tr>
+        </table>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

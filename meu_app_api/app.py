@@ -211,7 +211,7 @@ def delete_car(query: CarSearchSchema):
 
 
 # Marca
-@app.get("/marca", tags=[brand_tag])
+@app.get("/marcas", tags=[brand_tag])
 def get_brand():
     """Search for all registered brands
 
