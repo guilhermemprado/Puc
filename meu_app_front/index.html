@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="styles.css">
 
     <title>Projeto</title>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
 <body>
@@ -18,33 +23,53 @@
         <div class="banner">
             <img src="images/teste.jpg" alt="y">
         </div>
-        <!--
-        <div class="title">
-            <h2>Lista de carros</h2>
-        </div>
-        -->
+
     </header>
 
     <!-- Opções para adicionar um novo item -->
     <section class="newItem">
-        <select id=newBrand>
+        <select id="selectBrands" name="selectBrands">
+            <option>Marca</option>
+        </select>
+        <label id="labelBrandId" hidden="false">
+            "Marca"
+        </label>
 
+        <select id="selectModels" name="selectModels">
+            <option>Modelo</option>
+        </select>
+        <label id="labelModelId" hidden="false">
+            "Modelo"
+        </label>
+        <select id="selectFuels" name="selectFuels">
+            <option>Combustível</option>
+        </select>
+        <label id="labelFuellId" hidden="false">
+            "Combustivel"
+        </label>
+
+        <select id="selectYearManufacture" name="selectYearManufacture">
+            <option>Ano de fabricação</option>
         </select>
 
-        <select id=newModel>
-
+        <select id="selectYearModel" name="selectYearModel">
+            <option>Ano do modelo</option>
         </select>
-        <input type="text" id="newFuel" placeholder="Combustível:">
-        <input type="text" id="newYearManufacture" placeholder="Ano fabricação:">
-        <input type="text" id="newYearModel" placeholder="Ano modelo:">
-        <input type="text" id="newColor" placeholder="Color:">
-        <input type="text" id="newValue" placeholder="Valor:">
-        <span onclick="newItem()" class="addBtn"><b>Adicionar</b></span>
+
+        <select id="selectColor" name="selectColor">
+            <option>Cor</option>
+        </select>
+
+        <input type="text" id="inpValue" placeholder="Valor:">
+
+        <button id="btnAdicionar" onclick="btnClickAdicionar()">
+            <b>Adicionar</b>
+        </button>
     </section>
 
     <!-- Tabela com items existentes -->
     <section class="items">
-        <table id="myTable">
+        <table id="tabCars">
             <tr>
                 <th>Marca</th>
                 <th>Modelo</th>
@@ -53,6 +78,7 @@
                 <th>Ano modelo</th>
                 <th>Cor</th>
                 <th>Valor</th>
+                <th>Id</th>
                 <th><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15px" height="15px"></th>
                 <th><img src="https://cdn-icons-png.flaticon.com/512/126/126483.png" width="15px" height="15px"></th>
             </tr>
