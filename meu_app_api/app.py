@@ -49,7 +49,7 @@ def home():
 
 
 # Produto
-@app.post("/carro", tags=[car_tag])
+@app.post("/car", tags=[car_tag])
 def new_car(form: CarSchema):
     """Add a new car to the database
 
@@ -85,7 +85,7 @@ def new_car(form: CarSchema):
 
 
 @app.post(
-    "/update_carro",
+    "/update_car",
     tags=[car_tag],
 )
 def update_car(query: CarSearchSchema, form: UpdateCarSchema):
@@ -149,7 +149,7 @@ def update_car(query: CarSearchSchema, form: UpdateCarSchema):
         return {"mesage": error_msg}, 400
 
 
-@app.get("/carros", tags=[car_tag])
+@app.get("/cars", tags=[car_tag])
 def get_cars():
     """Search for all registered cars
 
@@ -167,7 +167,7 @@ def get_cars():
         return show_cars(cars), 200
 
 
-@app.get("/carro", tags=[car_tag])
+@app.get("/car", tags=[car_tag])
 def get_car(query: CarSearchSchema):
     """Searches for a car based on the car id
 
@@ -187,7 +187,7 @@ def get_car(query: CarSearchSchema):
         return show_car(car), 200
 
 
-@app.delete("/carro", tags=[car_tag])
+@app.delete("/car", tags=[car_tag])
 def delete_car(query: CarSearchSchema):
     """Deletes a car from the informed car id
 
@@ -211,7 +211,7 @@ def delete_car(query: CarSearchSchema):
 
 
 # Marca
-@app.get("/marcas", tags=[brand_tag])
+@app.get("/brands", tags=[brand_tag])
 def get_brand():
     """Search for all registered brands
 
@@ -230,7 +230,7 @@ def get_brand():
         return show_brands(brands), 200
 
 
-@app.post("/marca", tags=[brand_tag])
+@app.post("/brand", tags=[brand_tag])
 def new_brand(form: BrandSchema):
     """Adds a new tag to the database
 
@@ -258,7 +258,7 @@ def new_brand(form: BrandSchema):
         return {"mesage": error_msg}, 400
 
 
-@app.delete("/marca", tags=[brand_tag])
+@app.delete("/brand", tags=[brand_tag])
 def delete_brand(query: BrandSchema):
     """Deletes a tag from the given tag name
 
@@ -282,7 +282,7 @@ def delete_brand(query: BrandSchema):
 
 
 # Modelo
-@app.get("/modelo", tags=[model_tag])
+@app.get("/models", tags=[model_tag])
 def get_model():
     """Searches for all registered models
 
@@ -300,7 +300,7 @@ def get_model():
         return show_models(models), 200
 
 
-@app.post("/modelo", tags=[model_tag])
+@app.post("/model", tags=[model_tag])
 def new_model(form: ModelSchema):
     """Adds a new model to the database
 
@@ -328,7 +328,7 @@ def new_model(form: ModelSchema):
         return {"mesage": error_msg}, 400
 
 
-@app.delete("/modelo", tags=[model_tag])
+@app.delete("/model", tags=[model_tag])
 def delete_model(query: ModelNameSchema):
     """Deletes a model from the given id.
 
@@ -352,7 +352,7 @@ def delete_model(query: ModelNameSchema):
 
 
 # Combustível
-@app.get("/combustivel", tags=[fuel_tag])
+@app.get("/fuels", tags=[fuel_tag])
 def get_fuel():
     """Searches for all registered fuel types.
 
@@ -371,7 +371,7 @@ def get_fuel():
         return show_fuels(fuels), 200
 
 
-@app.post("/combustivel", tags=[fuel_tag])
+@app.post("/fuel", tags=[fuel_tag])
 def new_fuel(form: FuelSchema):
     """Adds a new fuel to the database.
 
@@ -399,7 +399,7 @@ def new_fuel(form: FuelSchema):
         return {"mesage": error_msg}, 400
 
 
-@app.delete("/combustivel", tags=[fuel_tag])
+@app.delete("/fuel", tags=[fuel_tag])
 def delete_fuel(query: FuelSchema):
     """Deletes a fuel from the given id.
 
