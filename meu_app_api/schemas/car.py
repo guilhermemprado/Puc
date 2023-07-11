@@ -42,7 +42,6 @@ def show_cars(cars: List[Car]):
         query_model = session.query(Model).filter(Model.id == car.model).first()
         query_brand = session.query(Brand).filter(Brand.id == query_model.brand).first()
         query_fuel = session.query(Fuel).filter(Fuel.id == car.fuel).first()
-        
 
         result.append(
             {
@@ -70,7 +69,7 @@ def show_car(car: Car):
     query_model = session.query(Model).filter(Model.id == car.model).first()
     query_brand = session.query(Brand).filter(Brand.id == query_model.brand).first()
     query_fuel = session.query(Fuel).filter(Fuel.id == car.fuel).first()
-
+    
     return {
         "Id": car.id,
         "Color": car.color,

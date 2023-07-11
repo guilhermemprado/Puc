@@ -127,6 +127,12 @@ def update_car(query: CarSearchSchema, form: UpdateCarSchema):
                 error_msg = "Informe o modelo."
                 return {"mesage": error_msg}, 404
 
+            if form.brand:
+                db_car.brand = form.brand
+            else:
+                error_msg = "Informe a marca."
+                return {"mesage": error_msg}, 404
+
             if form.value:
                 db_car.value = form.value
             else:

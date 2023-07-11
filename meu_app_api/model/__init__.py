@@ -8,7 +8,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import create_database, database_exists
 
-PATH_BD = "./database"
+caminho = os.getcwd()
+print("Primeiro caminho: ", caminho)
+PATH_BD = caminho.replace('/meu_app_api', '') + "/database"
 NAME_DB = "/car.db"
 # Verifica se o diretorio não existe.
 if not os.path.exists(PATH_BD):

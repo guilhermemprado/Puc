@@ -68,6 +68,16 @@ header {
     height: 13px;
 }
 
+.delete:hover {
+    color: #f44336;
+    font-weight: bolder;
+}
+
+.update:hover {
+    color: rgb(68, 68, 227);
+    font-weight: bolder;
+}
+
 .items {
     margin: 0;
     padding: 0;
@@ -103,16 +113,20 @@ th:nth-child(2) {
 
 th:nth-child(1),
 th:nth-child(3),
-th:nth-child(4) {
+th:nth-child(4),
+th:nth-child(7) {
     width: 12%;
 }
 
 th:nth-child(5),
-th:nth-child(6),
-th:nth-child(7) {
+th:nth-child(6) {
     width: 10%;
 }
 
 th:nth-child(8) {
-    width: 0.1px;
+    width: 4%;
+}
+
+tr:hover {
+    background: rgb(200, 199, 199);
 }
