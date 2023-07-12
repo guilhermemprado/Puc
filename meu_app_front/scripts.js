@@ -124,7 +124,7 @@ const displayOptionBrands = async () => {
 const displayOptionModels = async () => {
     // Calls the function that gets the data from the models
     let dados = await getPostModels();
-    let options = dados["Models"].filter(dados => dados.Brand === brands.options[brands.selectedIndex].text);
+    let options = await dados["Models"].filter(dados => dados.Brand === brands.options[brands.selectedIndex].text);
 
     // First record is always the field name and title, by default
     const newOption = document.createElement("option");
@@ -151,7 +151,7 @@ const displayOptionFuels = async () => {
         newOption.value = option.Id;
         newOption.text = option.Type;
         fuels.appendChild(newOption);
-    }
+    };
 };
 
 // Function that populates year manufacturing and year model
@@ -161,7 +161,7 @@ const displayOptionYears = async () => {
         2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
         2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019,
         2020, 2021, 2022, 2023
-    ]
+    ];
 
     for (let option of options) {
         // Year manufacturing
@@ -173,7 +173,7 @@ const displayOptionYears = async () => {
         const newOption1 = document.createElement("option");
         newOption1.text = option;
         dtYearModel.appendChild(newOption1);
-    }
+    };
 };
 
 // Function that populates year manufacturing and year model
@@ -188,7 +188,7 @@ const displayOptionColor = async () => {
         const newOption = document.createElement("option");
         newOption.text = option;
         color.appendChild(newOption);
-    }
+    };
 };
 
 // Function that populates select cars
@@ -197,7 +197,7 @@ const displayOptionCars = async () => {
 
     // Calls the function that gets the data from the cars
     const options = await getPostCars();
-    const item = options["cars"]
+    const item = options["cars"];
 
     for (let index = 0; index < item.length; index++) {
         let newRow = table.insertRow(1);
@@ -222,8 +222,8 @@ const displayOptionCars = async () => {
         cellValue.innerHTML = item[index].Value;
         cellIdCar.innerHTML = item[index].Id;
     }
-    deleteCar()
-    BuscaCar()
+    deleteCar();
+    BuscaCar();
 };
 
 //  Function to create a close button for each list item
@@ -233,7 +233,7 @@ const insertButtonDelete = (parent) => {
     btnDelete.className = "delete";
     btnDelete.appendChild(txtDelete);
     parent.appendChild(btnDelete);
-}
+};
 
 // Function to create a update button for each list item
 const insertButtonUpdate = (parent) => {
@@ -242,7 +242,7 @@ const insertButtonUpdate = (parent) => {
     btnUpdate.className = "update";
     btnUpdate.appendChild(txtUpdte);
     parent.appendChild(btnUpdate);
-}
+};
 
 // Click button
 const btnClickAdicionar = async () => {
@@ -266,31 +266,33 @@ const btnClickAdicionar = async () => {
     } else if (isNaN(selValue)) {
         alert("Valor informado não e valido!");
     } else {
-        console.log("Codigo: ", labelIdCar.textContent)
-        if (labelIdCar.textContent === 0) {
+        if (Number(labelIdCar.textContent) === 0) {
             await postCar(0, selColor, labelFuellId.textContent, labelModelId.textContent, selValue, selYearManufacture, selYearModel, labelBrandId.textContent)
-            alert("Item adicionado com sucesso!")
             window.location.reload(true);
+            alert("Item adicionado com sucesso!")
         } else {
-            await postCar(labelIdCar.textContent, selColor, labelFuellId.textContent, labelModelId.textContent, selValue, selYearManufacture, selYearModel, labelBrandId.textContent)
-            alert("Item alterado com sucesso!")
+            if (confirm("Deseja realmente alterar o carro?")) {
+                await postCar(labelIdCar.textContent, selColor, labelFuellId.textContent, labelModelId.textContent, selValue, selYearManufacture, selYearModel, labelBrandId.textContent)
+                window.location.reload(true);
+                alert("Item alterado com sucesso!")
+            };
             window.location.reload(true);
         };
     }
 }
 
 // post car
-const postCar = async (inputIdCar, inputColor, inputFuel, inputModel, inputValue, inputYearManufacture, inputYearModel, inputBrand) => {
+async function postCar(inputIdCar, inputColor, inputFuel, inputModel, inputValue, inputYearManufacture, inputYearModel, inputBrand) {
     const formData = new FormData();
     formData.append('color', inputColor);
-    formData.append('Year_manufacture', inputYearManufacture);
+    formData.append('year_manufacture', inputYearManufacture);
     formData.append('year_model', inputYearModel);
     formData.append('value', inputValue);
     formData.append('model', inputModel);
     formData.append('fuel', inputFuel);
     formData.append('brand', inputBrand);
 
-    if (inputIdCar === 0) {
+    if (Number(inputIdCar) === 0) {
         fetch(url_car, {
             method: 'post',
             body: formData
@@ -301,7 +303,7 @@ const postCar = async (inputIdCar, inputColor, inputFuel, inputModel, inputValue
             body: formData
         });
     };
-}
+};
 
 // Function to remove a car from the list according to the click on the btnDelete button
 const deleteCar = () => {
@@ -316,26 +318,21 @@ const deleteCar = () => {
                 div.remove()
                 deleteItem(nomeItem)
                 alert("Carro removido!")
-            }
-        }
-    }
-}
+            };
+        };
+    };
+};
 
 
 // Function to delete an car from the server list via DELETE request
 const deleteItem = (item) => {
     fetch(url_car + '?id=' + item, {
         method: 'delete'
-    })
-}
+    });
+};
 
 // Function to update a car in the list according to the click on the btnUpdate button
 const BuscaCar = async () => {
-    // Ok 1 Criar uma labela para o codigo do carro.
-    // Ok 2 Preencher essa label com o cdigo do carro, click do botaão alterar.
-    // 3 preencher todos os campos com os dados do carro utilizando.
-    // 4 Alterar o carro.
-    // 5 Atualizar a tela.
     let labelIdCar = document.getElementById("labelIdCar");
     let update = document.getElementsByClassName("update");
 
@@ -344,76 +341,102 @@ const BuscaCar = async () => {
         update[i].onclick = async function () {
             let div = this.parentElement.parentElement;
             const idCarro = div.getElementsByTagName('td')[7].innerHTML
-            if (confirm("Deseja realmente alterar o carro?")) {
-                labelIdCar.textContent = idCarro
 
-                // Select the brand
-                let select = document.querySelector('#selectBrands');
-                for (let iLine = 0; iLine < select.options.length; iLine++) {
-                    if (select.options[iLine].text === div.getElementsByTagName('td')[0].innerHTML) {
-                        select.selectedIndex = iLine;
-                        break;
-                    }
-                }
-                await onclickBrands()
+            labelIdCar.textContent = idCarro
 
-                // Select the models
-                console.log("Len", models.length)
-                console.log("Len.Opt", models.options.length)
-                for (let iLine = 0; iLine < models.options.length; iLine++) {
-                    console.log("Codigo: ", div.getElementsByTagName('td')[1].innerHTML)
-                    console.log("back: ", select.options[iLine].text)
-                    if (models.options[iLine].text === div.getElementsByTagName('td')[1].innerHTML) {
-                        models.options.selectedIndex = iLine;
-                        break;
-                    }
-                }
-                onchangeModel()
+            // Select the model from the list
+            selectdUpdateBrand(div);
 
-                // Select the fuels
-                select = document.querySelector('#selectFuels');
-                for (let iLine = 0; iLine < select.options.length; iLine++) {
-                    if (select.options[iLine].text === div.getElementsByTagName('td')[2].innerHTML) {
-                        select.selectedIndex = iLine;
-                        break;
-                    }
-                }
-                onclickFuels();
+            await onclickBrands();
 
-                // Select the year manufacture
-                select = document.querySelector('#selectYearManufacture');
-                for (let iLine = 0; iLine < select.options.length; iLine++) {
-                    if (select.options[iLine].text === div.getElementsByTagName('td')[3].innerHTML) {
-                        select.selectedIndex = iLine;
-                        break;
-                    }
-                }
+            // Select the model from the list
+            selectdUpdateModel(div);
 
-                // Select the year model
-                select = document.querySelector('#selectYearModel');
-                for (let iLine = 0; iLine < select.options.length; iLine++) {
-                    if (select.options[iLine].text === div.getElementsByTagName('td')[4].innerHTML) {
-                        select.selectedIndex = iLine;
-                        break;
-                    }
-                }
+            // Select the fuels from the list
+            selectUpdateFuel(div);
 
-                // Select the color
-                select = document.querySelector('#selectColor');
-                for (let iLine = 0; iLine < select.options.length; iLine++) {
-                    if (select.options[iLine].text === div.getElementsByTagName('td')[5].innerHTML) {
-                        select.selectedIndex = iLine;
-                        break;
-                    }
-                }
+            // Select the year manufacture from the list
+            selectdUpdateYearManufacture(div);
 
-                // Value
-                document.getElementById("inpValue").value = div.getElementsByTagName('td')[6].innerHTML
+            // Select the year model from the list
+            selectdUpdateYearModel(div);
 
-            }
-        }
-    }
-}
+            // Select the color from the list
+            selectdUpdateColor(div);
+
+            // Select the value from the input
+            document.getElementById("inpValue").value = div.getElementsByTagName('td')[6].innerHTML
+
+        };
+    };
+};
+
+const selectdUpdateBrand = (objeto) => {
+    // Select the brand
+    let select = document.querySelector('#selectBrands');
+    for (let iLine = 0; iLine < select.options.length; iLine++) {
+        if (select.options[iLine].text === objeto.getElementsByTagName('td')[0].innerHTML) {
+            select.selectedIndex = iLine;
+            break;
+        };
+    };
+};
+
+const selectdUpdateModel = (objeto) => {
+    // Select the models
+    for (let iLine = 0; iLine < models.options.length; iLine++) {
+        if (models.options[iLine].text === objeto.getElementsByTagName('td')[1].innerHTML) {
+            models.options.selectedIndex = iLine;
+            break;
+        };
+    };
+    onchangeModel();
+};
+
+const selectUpdateFuel = (objeto) => {
+    // Select the fuels
+    let select = document.querySelector('#selectFuels');
+    for (let iLine = 0; iLine < select.options.length; iLine++) {
+        if (select.options[iLine].text === objeto.getElementsByTagName('td')[2].innerHTML) {
+            select.selectedIndex = iLine;
+            break;
+        };
+    };
+    onclickFuels();
+};
+
+const selectdUpdateYearManufacture = (objeto) => {
+    // Select the year manufacture
+    let select = document.querySelector('#selectYearManufacture');
+    for (let iLine = 0; iLine < select.options.length; iLine++) {
+        if (select.options[iLine].text === objeto.getElementsByTagName('td')[3].innerHTML) {
+            select.selectedIndex = iLine;
+            break;
+        };
+    };
+};
+
+const selectdUpdateYearModel = (objeto) => {
+    // Select the year model
+    let select = document.querySelector('#selectYearModel');
+    for (let iLine = 0; iLine < select.options.length; iLine++) {
+        if (select.options[iLine].text === objeto.getElementsByTagName('td')[4].innerHTML) {
+            select.selectedIndex = iLine;
+            break;
+        };
+    };
+};
+
+const selectdUpdateColor = (objeto) => {
+    // Select the color
+    let select = document.querySelector('#selectColor');
+    for (let iLine = 0; iLine < select.options.length; iLine++) {
+        if (select.options[iLine].text === objeto.getElementsByTagName('td')[5].innerHTML) {
+            select.selectedIndex = iLine;
+            break;
+        };
+    };
+};
 
 
 // Calls the function to fill in the initial data

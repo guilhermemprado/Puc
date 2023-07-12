@@ -86,7 +86,7 @@ class UpdateCarSchema(BaseModel):
     """Define como um novo produto pode ser atualizado."""
 
     color: str = ""
-    Year_manufacture: str = ""
+    year_manufacture: str = ""
     year_model: str = ""
     value: float = 0.00
     model: int = 0

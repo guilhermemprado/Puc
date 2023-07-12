@@ -16,54 +16,49 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
-<body>
-
-    <!-- Cabeçalho de informações do sistema -->
-    <header>
-        <div class="banner">
-            <img src="images/teste.jpg" alt="y">
-        </div>
-
-    </header>
-
+<body background="images/background.png">
+    <div class="banner">
+        <img src="images/title.png">
+    </div>
     <!-- Opções para adicionar um novo item -->
-    <section class="newItem">
-        <label id="labelIdCar">
-            "0"
+    <section class="newItem" style="background: none">
+        <label id="labelIdCar" hidden="false">
+            0
         </label>
-        <select id="selectBrands" name="selectBrands">
+        <select id="selectBrands" name="selectBrands" style="background-color: rgba(255, 255, 255, 0.25)">
             <option>Marca</option>
         </select>
-        <label id="labelBrandId">
+        <label id="labelBrandId" hidden="false">
             "Marca"
         </label>
 
-        <select id="selectModels" name="selectModels">
+        <select id="selectModels" name="selectModels" style="background-color: rgba(255, 255, 255, 0.25)">
             <option>Modelo</option>
         </select>
-        <label id="labelModelId">
+        <label id="labelModelId" hidden="false">
             "Modelo"
         </label>
-        <select id="selectFuels" name="selectFuels">
+        <select id="selectFuels" name="selectFuels" style="background-color: rgba(255, 255, 255, 0.25)">
             <option>Combustível</option>
         </select>
-        <label id="labelFuellId">
+        <label id="labelFuellId" hidden="false">
             "Combustivel"
         </label>
 
-        <select id="selectYearManufacture" name="selectYearManufacture">
+        <select id="selectYearManufacture" name="selectYearManufacture"
+            style="background-color: rgba(255, 255, 255, 0.25)">
             <option>Ano de fabricação</option>
         </select>
 
-        <select id="selectYearModel" name="selectYearModel">
+        <select id="selectYearModel" name="selectYearModel" style="background-color: rgba(255, 255, 255, 0.25)">
             <option>Ano do modelo</option>
         </select>
 
-        <select id="selectColor" name="selectColor">
+        <select id="selectColor" name="selectColor" style="background-color: rgba(255, 255, 255, 0.25)">
             <option>Cor</option>
         </select>
 
-        <input type="text" id="inpValue" placeholder="Valor:">
+        <input type="text" id="inpValue" placeholder="Valor:" style="background-color: rgba(255, 255, 255, 0.25)">
 
         <button id="btnAdicionar" onclick="btnClickAdicionar()">
             <b>Adicionar</b>
@@ -72,7 +67,7 @@
 
     <!-- Tabela com items existentes -->
     <section class="items">
-        <table id="tabCars">
+        <table id="tabCars" style="background-color: rgba(123, 123, 123, 0.4)">
             <tr>
                 <th>Marca</th>
                 <th>Modelo</th>
@@ -82,8 +77,10 @@
                 <th>Cor</th>
                 <th>Valor</th>
                 <th>Id</th>
-                <th><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15px" height="15px"></th>
-                <th><img src="https://cdn-icons-png.flaticon.com/512/126/126483.png" width="15px" height="15px"></th>
+                <th><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15px" height="15px">
+                </th>
+                <th><img src="https://cdn-icons-png.flaticon.com/512/126/126483.png" width="15px" height="15px">
+                </th>
             </tr>
         </table>
     </section>

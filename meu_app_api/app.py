@@ -12,7 +12,8 @@ from model.car import Car
 from model.fuel import Fuel
 from model.model import Model
 from schemas.brand import BrandSchema, show_brand, show_brands
-from schemas.car import CarSchema, CarSearchSchema, UpdateCarSchema, show_car, show_cars
+from schemas.car import (CarSchema, CarSearchSchema, UpdateCarSchema, show_car,
+                         show_cars)
 from schemas.fuel import FuelSchema, show_fuel, show_fuels
 from schemas.model import ModelNameSchema, ModelSchema, show_model, show_models
 from sqlalchemy.exc import IntegrityError
@@ -96,7 +97,6 @@ def update_car(query: CarSearchSchema, form: UpdateCarSchema):
     try:
         session = Session()
         query = session.query(Car).filter(Car.id == query.id)
-        print(query)
         db_car = query.first()
         if not db_car:
             # Se o carro não foi encontrado
@@ -109,8 +109,8 @@ def update_car(query: CarSearchSchema, form: UpdateCarSchema):
                 error_msg = "Informe a cor."
                 return {"mesage": error_msg}, 404
 
-            if form.Year_manufacture:
-                db_car.Year_manufacture = form.Year_manufacture
+            if form.year_manufacture:
+                db_car.year_manufacture = form.year_manufacture
             else:
                 error_msg = "Informe o ano de fabricação."
                 return {"mesage": error_msg}, 404
@@ -236,57 +236,6 @@ def get_brand():
         return show_brands(brands), 200
 
 
-@app.post("/brand", tags=[brand_tag])
-def new_brand(form: BrandSchema):
-    """Adds a new tag to the database
-
-    Returns a representation of the added tag.
-    """
-    brand = Brand(name=form.name.lower().capitalize())
-    try:
-        # criando conexão com a base
-        session = Session()
-        # adicionando marca
-        session.add(brand)
-        # efetivando o camando de adição de novo item na tabela
-        session.commit()
-
-        return show_brand(brand), 200
-
-    except IntegrityError:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Produto de mesmo nome já salvo na base:"
-        return {"mesage": error_msg}, 409
-
-    except Exception:
-        # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item:"
-        return {"mesage": error_msg}, 400
-
-
-@app.delete("/brand", tags=[brand_tag])
-def delete_brand(query: BrandSchema):
-    """Deletes a tag from the given tag name
-
-    Returns a removal confirmation message.
-    """
-    brand_name = unquote(unquote(query.name.lower().capitalize()))
-
-    # criando conexão com a base
-    session = Session()
-    # fazendo a remoção
-    count = session.query(Brand).filter(Brand.name == brand_name).delete()
-    session.commit()
-
-    if count:
-        # retorna a representação da mensagem de confirmação
-        return {"mesage": "Marca removida", "id": brand_name}
-    else:
-        # Se a marca não foi encontrado
-        error_msg = f"Marca {brand_name} não encontrado na base:"
-        return {"mesage": error_msg}, 404
-
-
 # Modelo
 @app.get("/models", tags=[model_tag])
 def get_model():
@@ -304,57 +253,6 @@ def get_model():
     else:
         # retorna a representação de modelo
         return show_models(models), 200
-
-
-@app.post("/model", tags=[model_tag])
-def new_model(form: ModelSchema):
-    """Adds a new model to the database
-
-    Returns an added representation of the model.
-    """
-    model = Model(name=form.name.lower().capitalize(), brand=form.brand)
-    try:
-        # criando conexão com a base
-        session = Session()
-        # adicionando modelo
-        session.add(model)
-        # efetivando o camando de adição de novo item na tabela
-        session.commit()
-
-        return show_model(model), 200
-
-    except IntegrityError:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Modelo de mesmo nome já salvo na base:"
-        return {"mesage": error_msg}, 409
-
-    except Exception:
-        # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item:"
-        return {"mesage": error_msg}, 400
-
-
-@app.delete("/model", tags=[model_tag])
-def delete_model(query: ModelNameSchema):
-    """Deletes a model from the given id.
-
-    Returns a removal confirmation message.
-    """
-    model_name = unquote(unquote(query.name.lower().capitalize()))
-
-    # criando conexão com a base
-    session = Session()
-    # fazendo a remoção
-    count = session.query(Model).filter(Model.name == model_name).delete()
-    session.commit()
-
-    if count:
-        # retorna a representação da mensagem de confirmação
-        return {"mesage": "Modelo removido", "nome": model_name}
-    else:
-        # Se a marca não foi encontrado
-        error_msg = f"Modelo {model_name} não encontrado na base:"
-        return {"mesage": error_msg}, 404
 
 
 # Combustível
@@ -375,54 +273,3 @@ def get_fuel():
     else:
         # retorna a representação de combustível
         return show_fuels(fuels), 200
-
-
-@app.post("/fuel", tags=[fuel_tag])
-def new_fuel(form: FuelSchema):
-    """Adds a new fuel to the database.
-
-    Returns a representation of the added fuel.
-    """
-    fuel = Fuel(type=form.type.lower().capitalize())
-    try:
-        # criando conexão com a base
-        session = Session()
-        # adicionando combustível
-        session.add(fuel)
-        # efetivando o camando de adição de novo item na tabela
-        session.commit()
-
-        return show_fuel(fuel), 200
-
-    except IntegrityError:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Combustível de mesmo nome já salvo na base:"
-        return {"mesage": error_msg}, 409
-
-    except Exception:
-        # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item:"
-        return {"mesage": error_msg}, 400
-
-
-@app.delete("/fuel", tags=[fuel_tag])
-def delete_fuel(query: FuelSchema):
-    """Deletes a fuel from the given id.
-
-    Returns a removal confirmation message.
-    """
-    fuel_type = unquote(unquote(query.type.lower().capitalize()))
-
-    # criando conexão com a base
-    session = Session()
-    # fazendo a remoção
-    count = session.query(Fuel).filter(Fuel.type == fuel_type).delete()
-    session.commit()
-
-    if count:
-        # retorna a representação da mensagem de confirmação
-        return {"mesage": "Combustível removido", "tipo": fuel_type}
-    else:
-        # Se a marca não foi encontrado
-        error_msg = f"Combustível {fuel_type} não encontrado na base:"
-        return {"mesage": error_msg}, 404

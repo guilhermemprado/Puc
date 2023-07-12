@@ -1,41 +1,21 @@
 body,
 ul,
 li {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    box-sizing: border-box;
     margin: 0;
-    padding: 0;
+    padding: 20;
     background-color: rgb(225, 222, 199);
-}
-
-header {
-    background-color: rgb(225, 222, 199);
-    text-align: center;
-    position: relative;
-    width: 100%;
 }
 
 .banner {
-    height: 240px;
-    overflow: hidden;
-}
-
-.banner img {
-    margin: 0px 0px 0px 0px;
-    width: 100%;
-    height: 200%;
+    height: 120px;
+    padding-top: 20px;
+    text-align: center;
+    position: relative;
 }
 
 .title {
     color: rgb(51, 18, 18);
-    width: 100%;
-    height: 10px;
     background-color: transparent;
-    font-size: 18px;
-    display: inline-block;
-    padding: 0px 0px;
-    position: sticky;
-    top: 0px;
 }
 
 .newItem {
@@ -44,12 +24,11 @@ header {
     padding: 20px 13px;
     color: white;
     display: flex;
-    justify-content: left;
+
 }
 
 #inpValue {
-    margin: 0;
-    border: 1px solid black;
+    border: 1px solid rgb(104, 103, 103);
     width: 14%;
     height: 30px;
     padding: 10px;
@@ -60,27 +39,13 @@ header {
     padding: 9px 10px;
     background-color: rgb(225, 217, 217);
     color: black;
-    text-align: justify;
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
-    border-radius: 2px;
     height: 13px;
 }
 
-.delete:hover {
-    color: #f44336;
-    font-weight: bolder;
-}
-
-.update:hover {
-    color: rgb(68, 68, 227);
-    font-weight: bolder;
-}
-
 .items {
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
 }
@@ -89,17 +54,19 @@ table,
 th,
 td {
     border: 1px solid lightslategrey;
-    border-collapse: collapse;
-    cursor: pointer;
     position: relative;
-    padding: 4px 3px 1px 4px;
+    padding: 5px 4px 2px 5px;
     font-size: 16px;
     transition: 0.2s;
-    text-align: start;
+    cursor: pointer;
+}
+
+td {
+    max-block-size: 60%;
+    max-height: 55;
 }
 
 table {
-    background-color: white;
     width: 98%;
 }
 
@@ -129,4 +96,14 @@ th:nth-child(8) {
 
 tr:hover {
     background: rgb(200, 199, 199);
+}
+
+.delete:hover {
+    color: #f44336;
+    font-weight: bolder;
+}
+
+.update:hover {
+    color: rgb(68, 68, 227);
+    font-weight: bolder;
 }
