@@ -12,13 +12,12 @@ from model.car import Car
 from model.fuel import Fuel
 from model.model import Model
 from schemas.brand import BrandSchema, show_brand, show_brands
-from schemas.car import (CarSchema, CarSearchSchema, UpdateCarSchema, show_car,
-                         show_cars)
+from schemas.car import CarSchema, CarSearchSchema, UpdateCarSchema, show_car, show_cars
 from schemas.fuel import FuelSchema, show_fuel, show_fuels
 from schemas.model import ModelNameSchema, ModelSchema, show_model, show_models
 from sqlalchemy.exc import IntegrityError
 
-info = Info(title="My API", version="1.0.0")
+info = Info(title="Car list", version="1.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
 
